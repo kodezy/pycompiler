@@ -1,16 +1,16 @@
-# PyCompiler
+# PyNexe
 
-> **Python to Windows executable converter**
+> **Python to Windows executable builder**
 
 ## What it does
 
-Converts Python scripts into standalone Windows .exe files using native compilation.
+Builds standalone Windows .exe files from Python scripts using native compilation.
 
-**Key Innovation:** Simplifies Nuitka compilation with a clean YAML configuration and rich CLI interface.
+**Key Innovation:** Simplifies Nuitka building with a clean YAML configuration and rich CLI interface.
 
-## Why PyCompiler?
+## Why PyNexe?
 
-While Nuitka provides excellent native compilation, it can be complex to configure. PyCompiler wraps Nuitka with:
+While Nuitka provides excellent native compilation, it can be complex to configure. PyNexe wraps Nuitka with:
 
 - **Simple YAML configuration** instead of complex command lines
 - **Rich CLI interface** with progress tracking
@@ -39,7 +39,7 @@ project_libs:
 
 2. **Build:**
 ```bash
-python compiler.py
+python builder.py
 ```
 
 3. **Done:** `my_app.exe` ready to distribute
@@ -71,8 +71,8 @@ project_libs:
 
 ## Features
 
-### 🚀 **Native Compilation**
-- Compiles Python to native C++ code via Nuitka
+### 🚀 **Native Building**
+- Builds Python to native C++ code via Nuitka
 - Optimized execution performance
 - Smaller executable sizes
 - Fast startup times
@@ -129,9 +129,9 @@ windows_metadata:           # Exe properties
 ## Usage
 
 ```bash
-python compiler.py                    # Build
-python compiler.py --info            # Check config
-python compiler.py --config my.yaml  # Custom config
+python builder.py                    # Build
+python builder.py --info            # Check config
+python builder.py --config my.yaml  # Custom config
 ```
 
 ![CLI Screenshot](docs/cli-screenshot.png)
@@ -140,7 +140,7 @@ python compiler.py --config my.yaml  # Custom config
 
 1. Creates isolated build environment
 2. Installs your dependencies
-3. Compiles with Nuitka (Python → native)
+3. Builds with Nuitka (Python → native)
 4. Applies optimizations (UPX compression)
 5. Cleans up temporary files
 6. Delivers executable
@@ -170,11 +170,13 @@ python compiler.py --config my.yaml  # Custom config
 ## Project Structure
 
 ```
-pycompiler/
-├── compiler.py          # Build tool
+pynexe/
+├── builder.py            # Build tool
 ├── src/
-│   ├── cli.py          # Command interface
-│   └── builder.py      # Build engine
-├── config.yaml         # Configuration
-└── requirements.txt    # Dependencies
+│   ├── cli.py           # Command interface
+│   └── engine.py        # Build engine
+├── config.yaml          # Configuration
+└── requirements.txt     # Dependencies
 ```
+
+---

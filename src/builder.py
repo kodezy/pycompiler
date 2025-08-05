@@ -1,5 +1,5 @@
 """
-PyCompiler Builder
+PyNexe Builder
 Core building logic for Python projects with Nuitka.
 """
 
@@ -14,7 +14,7 @@ from typing import Any
 import yaml
 
 
-class Config:
+class BuilderConfig:
     def __init__(self, config_path: str):
         self.config_path = config_path
 
@@ -113,7 +113,7 @@ class Config:
 
 
 class Builder:
-    def __init__(self, config: Config):
+    def __init__(self, config: BuilderConfig):
         self.config = config
 
         self._temp_dir = None
