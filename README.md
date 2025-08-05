@@ -4,13 +4,13 @@
 
 ## What it does
 
-Builds standalone Windows .exe files from Python scripts using native compilation.
+Generates standalone Windows .exe files from Python scripts using Nuitka bundling.
 
 **Key Innovation:** Simplifies Nuitka building with a clean YAML configuration and rich CLI interface.
 
 ## Why PyNexe?
 
-While Nuitka provides excellent native compilation, it can be complex to configure. PyNexe wraps Nuitka with:
+While Nuitka provides excellent executable generation, it can be complex to configure. PyNexe wraps Nuitka with:
 
 - **Simple YAML configuration** instead of complex command lines
 - **Rich CLI interface** with progress tracking
@@ -39,7 +39,7 @@ project_libs:
 
 2. **Build:**
 ```bash
-python builder.py
+python pynexe.py run
 ```
 
 3. **Done:** `my_app.exe` ready to distribute
@@ -129,9 +129,14 @@ windows_metadata:           # Exe properties
 ## Usage
 
 ```bash
-python builder.py                    # Build
-python builder.py --info            # Check config
-python builder.py --config my.yaml  # Custom config
+# Quick Start
+python pynexe.py run              # Build with config.yaml
+python pynexe.py info             # Check project settings
+python pynexe.py help             # Show help
+
+# Advanced Usage
+python pynexe.py run --config prod.yaml    # Custom config
+python pynexe.py info --config dev.yaml    # Check dev config
 ```
 
 ![CLI Screenshot](docs/cli-screenshot.png)
@@ -171,7 +176,7 @@ python builder.py --config my.yaml  # Custom config
 
 ```
 pynexe/
-├── builder.py            # Build tool
+├── pynexe.py             # Build tool
 ├── src/
 │   ├── cli.py           # Command interface
 │   └── engine.py        # Build engine
