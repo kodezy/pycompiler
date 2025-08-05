@@ -103,10 +103,10 @@ class CompilerCLI:
             self._console.print("\n[yellow]⚠ Build interrupted[/yellow]")
             sys.exit(1)
 
-        except Exception as e:
+        except Exception as exception:
             error_text = Text()
             error_text.append("Build failed!", style="bold red")
-            error_text.append(f"\nError: {e}", style="red")
+            error_text.append(f"\nError: {exception}", style="red")
 
             error_panel = Panel(error_text, title="Error", border_style="red")
             self._console.print(error_panel)
