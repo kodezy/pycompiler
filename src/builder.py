@@ -125,7 +125,11 @@ class Builder:
         self._temp_dir = tempfile.mkdtemp(prefix="build_")
         self._venv_path = Path(self._temp_dir) / "venv"
 
-        result = subprocess.run([sys.executable, "-m", "venv", str(self._venv_path)], capture_output=True, text=True)
+        result = subprocess.run(
+            [sys.executable, "-m", "venv", str(self._venv_path)],
+            capture_output=True,
+            text=True,
+        )
         if result.returncode != 0:
             raise Exception(f"Failed to create venv: {result.stderr}")
 
@@ -178,7 +182,7 @@ class Builder:
             f"--company-name={self.config.windows_metadata['company_name']}",
         ]
 
-        # Add extra compilation args
+        # Add extra args
         for arg in self.config.nuitka_extra_args:
             nuitka_args.append(arg)
 
@@ -206,7 +210,7 @@ class Builder:
         if result.returncode != 0:
             print(f"  Nuitka stdout: {result.stdout}")
             print(f"  Nuitka stderr: {result.stderr}")
-            raise Exception(f"Nuitka compilation failed: {result.stderr}")
+            raise Exception(f"Nuitka build failed: {result.stderr}")
 
         if not os.path.exists(self.config.output_name):
             raise Exception(f"Output file not created: {self.config.output_name}")
@@ -252,7 +256,6 @@ class Builder:
 
             print(f"Build completed successfully: {self.config.output_name}")
             print(f"Project: {self.config.project_name}")
-            print("Native compilation applied")
 
         except KeyboardInterrupt:
             print("Build interrupted by user")
