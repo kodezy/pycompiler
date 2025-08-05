@@ -1,113 +1,52 @@
 # PyCompiler
 
-> **Transform Python scripts into standalone Windows executables with one command**
+> **Python to Windows executable converter**
 
-## What is PyCompiler?
+## What it does
 
-PyCompiler converts Python applications into Windows executables (.exe files). Simple, fast, and reliable.
+Converts Python scripts into standalone Windows .exe files using native compilation.
 
-**Why use PyCompiler?**
-- ✅ **Simple setup** - Just configure and build
-- ✅ **Standalone executables** - Run without Python installed
-- ✅ **Beautiful CLI** - Progress tracking with feedback
-- ✅ **Auto-dependencies** - Installs what you need
-- ✅ **Clean builds** - Removes temporary files
+**Key Innovation:** Simplifies Nuitka compilation with a clean YAML configuration and rich CLI interface.
+
+## Why PyCompiler?
+
+While Nuitka provides excellent native compilation, it can be complex to configure. PyCompiler wraps Nuitka with:
+
+- **Simple YAML configuration** instead of complex command lines
+- **Rich CLI interface** with progress tracking
+- **Isolated build environments** for consistent results
+- **Windows metadata support** for professional executables
+- **Automatic optimizations** like UPX compression
+
+## Installation
+
+```bash
+pip install -r requirements.txt
+```
+
+**Requirements:** Python 3.7+, Windows
 
 ## Quick Start
 
-### 1. Configure
-Create `config.yaml`:
-
+1. **Create config.yaml:**
 ```yaml
-# Required
 project_name: "my_app"
 main_file: "main.py"
 output_name: "my_app.exe"
-
-# Optional
 project_libs:
   - "requests"
 ```
 
-### 2. Build
+2. **Build:**
 ```bash
 python compiler.py
 ```
 
-### 3. Done!
-Your `my_app.exe` is ready to distribute! 🎉
-
----
-
-## Usage
-
-```bash
-# Build project
-python compiler.py
-
-# Check configuration
-python compiler.py --info
-
-# Use custom config
-python compiler.py --config my.yaml
-
-# Show help
-python compiler.py --show-help
-```
-
-### What You'll See
-```
-┌─ PyCompiler - Python to Native Builder ─┐
-
-✓ Environment created
-✓ Dependencies installed
-✓ Compilation completed
-✓ Cleanup finished
-
-┌─ Success ─────────────────────────────────────┐
-│ Build completed successfully!                 │
-│ Output: my_app.exe                           │
-└───────────────────────────────────────────────┘
-```
-
----
-
-## Configuration
-
-### Required Fields (3 only)
-```yaml
-project_name: "my_app"      # App name
-main_file: "main.py"        # Main Python file
-output_name: "my_app.exe"   # Output executable
-```
-
-### Optional Fields
-```yaml
-# Your dependencies
-project_libs:
-  - "requests"
-  - "pandas"
-
-# Packages to include
-include_packages:
-  - "src"
-
-# Windows icon
-icon_file: "icon.ico"
-
-# Executable properties
-windows_metadata:
-  product_name: "My App"
-  file_description: "My Python Application"
-  product_version: "1.0.0.0"
-  copyright: "My Company"
-```
-
----
+3. **Done:** `my_app.exe` ready to distribute
 
 ## Example
 
-### Python Script (`main.py`)
+**main.py:**
 ```python
 import requests
 
@@ -119,7 +58,7 @@ if __name__ == "__main__":
     main()
 ```
 
-### Configuration (`config.yaml`)
+**config.yaml:**
 ```yaml
 project_name: "github_checker"
 main_file: "main.py"
@@ -128,67 +67,105 @@ project_libs:
   - "requests"
 ```
 
-### Build
-```bash
-python compiler.py
-```
+**Result:** `github_checker.exe` (standalone)
 
-**Result:** `github_checker.exe` (standalone executable)
+## Features
 
----
+### 🚀 **Native Compilation**
+- Compiles Python to native C++ code via Nuitka
+- Optimized execution performance
+- Smaller executable sizes
+- Fast startup times
 
-## Installation
+### 🔒 **Security**
+- Compiled binary protection
+- Source code obfuscation
+- Professional executable properties
 
-```bash
-pip install -r requirements.txt
-```
-
-**Requirements:**
-- Python 3.7+
-- Windows (for .exe output)
-
----
-
-## How It Works
-
-1. **Creates environment** - Isolated build space
-2. **Installs dependencies** - Your libraries + tools
-3. **Compiles with Nuitka** - Python to native code
-4. **Applies optimizations** - Compression, metadata
-5. **Cleans up** - Removes temporary files
-6. **Delivers executable** - Ready to use
-
----
+### ⚙️ **Developer Experience**
+- YAML-based declarative setup (vs complex Nuitka commands)
+- Rich CLI with progress tracking
+- Isolated build environments
+- Windows metadata support
+- UPX compression optimization
 
 ## Use Cases
 
-- **Desktop apps** - GUI applications
-- **CLI tools** - Command-line utilities
-- **Data tools** - Analysis scripts
-- **Web scrapers** - Standalone scrapers
-- **API clients** - Web service tools
-- **Automation** - Task automation
+- Desktop GUI applications
+- CLI tools and utilities
+- Data analysis scripts
+- Web scrapers and automation
+- API clients and services
+- System administration tools
+- Commercial software distribution
 
----
+## Configuration
 
-## Tips
+**Required:**
+```yaml
+project_name: "my_app"      # App name
+main_file: "main.py"        # Main file
+output_name: "my_app.exe"   # Output exe
+```
 
-### Getting Started
-- Start with required fields only
-- Test your exe on clean Windows machine
-- Add dependencies as needed
+**Optional:**
+```yaml
+project_libs:               # Dependencies
+  - "requests"
+  - "pandas"
 
-### Best Practices
-- Use clear project names
-- Include all required libraries
-- Test thoroughly before distribution
+include_packages:           # Extra packages
+  - "src"
 
-### Troubleshooting
+icon_file: "icon.ico"       # Windows icon
+
+windows_metadata:           # Exe properties
+  product_name: "My App"
+  file_description: "My Python Application"
+  product_version: "1.0.0.0"
+  copyright: "My Company"
+```
+
+## Usage
+
+```bash
+python compiler.py                    # Build
+python compiler.py --info            # Check config
+python compiler.py --config my.yaml  # Custom config
+```
+
+![CLI Screenshot](docs/cli-screenshot.png)
+
+## How it works
+
+1. Creates isolated build environment
+2. Installs your dependencies
+3. Compiles with Nuitka (Python → native)
+4. Applies optimizations (UPX compression)
+5. Cleans up temporary files
+6. Delivers executable
+
+## Antivirus Warnings
+
+⚠️ **Important:** Generated .exe files may trigger antivirus alerts. This is normal and expected.
+
+**Why this happens:**
+- Compiled Python executables are often flagged as suspicious
+- UPX compression can trigger heuristic detection
+- New/uncommon executables are treated as potential threats
+
+**Solutions:**
+- **Add to whitelist** - Add the .exe to your antivirus exceptions
+- **Submit for analysis** - Report false positive to your antivirus vendor
+- **Use digital signature** - Sign your executable with a certificate
+- **Test thoroughly** - Ensure your code is clean and safe
+
+## Troubleshooting
+
 - **Missing dependencies** → Add to `project_libs`
-- **Large file size** → UPX compression is enabled
+- **Large file size** → UPX compression enabled
 - **Build errors** → Check Python syntax and dependencies
-
----
+- **Antivirus alerts** → Add to whitelist or submit for analysis
 
 ## Project Structure
 
@@ -201,7 +178,3 @@ pycompiler/
 ├── config.yaml         # Configuration
 └── requirements.txt    # Dependencies
 ```
-
----
-
-**Made with ❤️ for Python developers** 
