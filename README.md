@@ -58,6 +58,9 @@ project_libs:
 include_packages:
   - "src"
 
+include_data_dirs:
+  - "assets=assets"
+
 icon_file: "icon.ico"
 
 windows_metadata:
@@ -68,13 +71,10 @@ windows_metadata:
   copyright: "My Company"
   company_name: "My Company"
 
-# Advanced settings (optional)
+# Advanced settings (recommended to keep defaults)
 build_libs:
-  - "nuitka"
-  - "ordered-set"
-
-include_data_dirs:
-  - "assets=assets"
+  - "nuitka"        # Python to C++
+  - "ordered-set"   # Dependency for Nuitka
 
 nuitka_plugins:
   - "upx"           # Compress size
@@ -82,13 +82,13 @@ nuitka_plugins:
   - "tk-inter"      # Include Tkinter
 
 nuitka_extra_args:
-  - "--lto=no"
-  - "--show-scons"
-  - "--jobs=1"
+  - "--lto=no"      # Disable link-time optimization
+  - "--show-scons"  # Show SCons build output
+  - "--jobs=1"      # Single compilation job
 
 cleanup_items:
-  - "build"
-  - "dist"
+  - "build"         # Remove build directory
+  - "dist"          # Remove dist directory
 ```
 
 ## 🧪 Usage
