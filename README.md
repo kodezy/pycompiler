@@ -1,53 +1,103 @@
 # PyNexe
 
-> **Python to Windows executable builder**
+**Python to Windows executable builder using Nuitka**
 
-## What it does
+PyNexe simplifies the process of creating standalone Windows executables from Python scripts. It wraps Nuitka's powerful translation and compilation capabilities with a clean YAML configuration system and rich CLI interface, making executable generation accessible and consistent.
 
-Generates standalone Windows .exe files from Python scripts using Nuitka bundling.
+## 🚀 Features
 
-**Key Innovation:** Simplifies Nuitka building with a clean YAML configuration and rich CLI interface.
+- **Wraps Nuitka's translation** - Converts Python to native C++ via Nuitka
+- **YAML-based configuration** eliminates complex command-line arguments
+- **Isolated build environments** ensure consistent and reproducible builds
+- **Windows metadata support** for professional executable properties
+- **UPX compression** reduces executable size automatically
+- **Rich CLI interface** with progress tracking and error reporting
+- **Source code protection** through Nuitka's translation and obfuscation
+- **Fast startup times** compared to interpreted Python scripts
 
-## Why PyNexe?
+## 📋 Requirements
 
-While Nuitka provides excellent executable generation, it can be complex to configure. PyNexe wraps Nuitka with:
+- **Python 3.7+** (recommended: 3.13+)
+- **Windows 10/11** (64-bit)
+- **Nuitka** (installed automatically)
+- **Visual Studio Build Tools** (for Nuitka's C++ compilation)
 
-- **Simple YAML configuration** instead of complex command lines
-- **Rich CLI interface** with progress tracking
-- **Isolated build environments** for consistent results
-- **Windows metadata support** for professional executables
-- **Automatic optimizations** like UPX compression
+## 📦 Installation
 
-## Installation
+1. **Clone the repository:**
+```bash
+git clone https://github.com/kodezy/pynexe.git
+cd pynexe
+```
 
+2. **Install dependencies:**
 ```bash
 pip install -r requirements.txt
 ```
 
-**Requirements:** Python 3.7+, Windows
+3. **Verify installation:**
+```bash
+python pynexe.py help
+```
 
-## Quick Start
+## ⚙️ Configuration
 
-1. **Create config.yaml:**
+Create a `config.yaml` file in your project root:
+
 ```yaml
+# Required settings
 project_name: "my_app"
 main_file: "main.py"
 output_name: "my_app.exe"
+
+# Optional settings
 project_libs:
   - "requests"
+  - "pandas"
+
+include_packages:
+  - "src"
+
+icon_file: "icon.ico"
+
+windows_metadata:
+  product_name: "My Application"
+  file_description: "My Python Application"
+  product_version: "1.0.0.0"
+  file_version: "1.0.0.0"
+  copyright: "My Company"
+  company_name: "My Company"
+
+# Advanced settings (optional)
+build_libs:
+  - "nuitka"
+  - "ordered-set"
+
+include_data_dirs:
+  - "assets=assets"
+
+nuitka_plugins:
+  - "upx"           # Compress size
+  - "no-qt"         # Exclude Qt
+  - "tk-inter"      # Include Tkinter
+
+nuitka_extra_args:
+  - "--lto=no"
+  - "--show-scons"
+  - "--jobs=1"
+
+cleanup_items:
+  - "build"
+  - "dist"
 ```
 
-2. **Build:**
-```bash
-python pynexe.py run
-```
+## 🧪 Usage
 
-3. **Done:** `my_app.exe` ready to distribute
+### Basic Usage
 
-## Example
-
-**main.py:**
+1. **Create your Python script:**
 ```python
+# main.py
 import requests
 
 def main():
@@ -58,130 +108,59 @@ if __name__ == "__main__":
     main()
 ```
 
-**config.yaml:**
-```yaml
-project_name: "github_checker"
-main_file: "main.py"
-output_name: "github_checker.exe"
-project_libs:
-  - "requests"
+2. **Build the executable:**
+```bash
+python pynexe.py run
 ```
 
-**Result:** `github_checker.exe` (standalone)
+3. **Result:** `my_app.exe` ready for distribution
 
-## Features
-
-### 🚀 **Native Building**
-- Builds Python to native C++ code via Nuitka
-- Optimized execution performance
-- Smaller executable sizes
-- Fast startup times
-
-### 🔒 **Security**
-- Compiled binary protection
-- Source code obfuscation
-- Professional executable properties
-
-### ⚙️ **Developer Experience**
-- YAML-based declarative setup (vs complex Nuitka commands)
-- Rich CLI with progress tracking
-- Isolated build environments
-- Windows metadata support
-- UPX compression optimization
-
-## Use Cases
-
-- Desktop GUI applications
-- CLI tools and utilities
-- Data analysis scripts
-- Web scrapers and automation
-- API clients and services
-- System administration tools
-- Commercial software distribution
-
-## Configuration
-
-**Required:**
-```yaml
-project_name: "my_app"      # App name
-main_file: "main.py"        # Main file
-output_name: "my_app.exe"   # Output exe
-```
-
-**Optional:**
-```yaml
-project_libs:               # Dependencies
-  - "requests"
-  - "pandas"
-
-include_packages:           # Extra packages
-  - "src"
-
-icon_file: "icon.ico"       # Windows icon
-
-windows_metadata:           # Exe properties
-  product_name: "My App"
-  file_description: "My Python Application"
-  product_version: "1.0.0.0"
-  copyright: "My Company"
-```
-
-## Usage
+### Advanced Usage
 
 ```bash
-# Quick Start
-python pynexe.py run              # Build with config.yaml
-python pynexe.py info             # Check project settings
-python pynexe.py help             # Show help
+# Build with custom config
+python pynexe.py run --config production.yaml
 
-# Advanced Usage
-python pynexe.py run --config prod.yaml    # Custom config
-python pynexe.py info --config dev.yaml    # Check dev config
+# Check project settings
+python pynexe.py info
+
+# Show detailed help
+python pynexe.py help
 ```
 
-![CLI Screenshot](docs/cli-screenshot.png)
+## 🧠 How It Works
 
-## How it works
+1. **Environment Setup** - Creates isolated build environment
+2. **Dependency Resolution** - Installs required packages
+3. **Nuitka Processing** - Nuitka translates and compiles Python to executable
+4. **Optimization** - Applies UPX compression and metadata
+5. **Cleanup** - Removes temporary build files
+6. **Delivery** - Produces standalone executable
 
-1. Creates isolated build environment
-2. Installs your dependencies
-3. Builds with Nuitka (Python → native)
-4. Applies optimizations (UPX compression)
-5. Cleans up temporary files
-6. Delivers executable
+## 🔒 Security Considerations
 
-## Antivirus Warnings
+### Antivirus Warnings
 
-⚠️ **Important:** Generated .exe files may trigger antivirus alerts. This is normal and expected.
+Generated executables may trigger antivirus alerts. This is normal behavior:
 
-**Why this happens:**
-- Compiled Python executables are often flagged as suspicious
-- UPX compression can trigger heuristic detection
-- New/uncommon executables are treated as potential threats
+**Common causes:**
+- Nuitka-generated executables are flagged as suspicious
+- UPX compression triggers heuristic detection
+- New/uncommon executables treated as potential threats
 
 **Solutions:**
-- **Add to whitelist** - Add the .exe to your antivirus exceptions
-- **Submit for analysis** - Report false positive to your antivirus vendor
-- **Use digital signature** - Sign your executable with a certificate
-- **Test thoroughly** - Ensure your code is clean and safe
+- Add executable to antivirus whitelist
+- Submit false positive report to antivirus vendor
+- Use digital signature for commercial distribution
+- Test thoroughly before distribution
 
-## Troubleshooting
+## 🛠️ Troubleshooting
 
-- **Missing dependencies** → Add to `project_libs`
-- **Large file size** → UPX compression enabled
-- **Build errors** → Check Python syntax and dependencies
-- **Antivirus alerts** → Add to whitelist or submit for analysis
-
-## Project Structure
-
-```
-pynexe/
-├── pynexe.py             # Build tool
-├── src/
-│   ├── cli.py           # Command interface
-│   └── engine.py        # Build engine
-├── config.yaml          # Configuration
-└── requirements.txt     # Dependencies
-```
-
----
+| Issue | Solution |
+|-------|----------|
+| Missing dependencies | Add to `project_libs` in config.yaml |
+| Large executable size | UPX compression is enabled by default |
+| Build errors | Check Python syntax and dependencies |
+| Antivirus alerts | Add to whitelist or submit for analysis |
+| Nuitka build fails | Ensure Visual Studio Build Tools installed |
+| Config file not found | Create `config.yaml` in project root |
