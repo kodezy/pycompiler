@@ -1,37 +1,13 @@
-# PyNexe Configuration
-# 
-# This file configures your Python to executable conversion.
-# Only 3 fields are required - everything else is optional!
+project_name: "my_app"
+main_file: "main.py"
+output_name: "my_app.exe"
 
-# ==========================================
-# REQUIRED - Fill these 3 fields
-# ==========================================
-project_name: "my_app"        # Your app name
-main_file: "main.py"          # Your main Python file
-output_name: "my_app.exe"     # Output executable name
-
-# ==========================================
-# OPTIONAL - Add if needed
-# ==========================================
-
-# Your Python dependencies
 project_libs: []
-# project_libs:
-#   - "requests"
-#   - "pandas"
-
-# Python packages to include
 include_packages: []
-# include_packages:
-#   - "src"
+include_data_dirs: []
 
-# Windows executable icon
 icon_file: null
-# icon_file: "icon.ico"
 
-# ==========================================
-# WINDOWS METADATA - Customize .exe properties
-# ==========================================
 windows_metadata:
   product_name: "My Application"
   file_description: "My Python Application"
@@ -40,33 +16,20 @@ windows_metadata:
   copyright: "My Company"
   company_name: "My Company"
 
-# ==========================================
-# ADVANCED - Don't change unless needed
-# ==========================================
-
-# Build dependencies (auto-installed)
 build_libs:
   - "nuitka"
   - "ordered-set"
 
-# Data directories to include
-include_data_dirs: []
-# include_data_dirs:
-#   - "assets=assets"
-
-# Nuitka plugins
 nuitka_plugins:
-  - "upx"           # Compress size
-  - "no-qt"         # Exclude Qt
-  - "tk-inter"      # Include Tkinter
+  - "upx"
+  - "no-qt"
+  - "tk-inter"
 
-# Additional Nuitka arguments
 nuitka_extra_args:
   - "--lto=no"
   - "--show-scons"
   - "--jobs=1"
 
-# Additional cleanup files
-cleanup_items: []
-# cleanup_items:
-#   - "build"
+cleanup_items:
+  - "build"
+  - "dist"
