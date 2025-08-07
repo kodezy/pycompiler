@@ -71,7 +71,7 @@ windows_metadata:
   copyright: "My Company"
   company_name: "My Company"
 
-# Advanced settings (recommended to keep defaults)
+# Advanced settings
 build_libs:
   - "nuitka"        # Python to C++
   - "ordered-set"   # Dependency for Nuitka
